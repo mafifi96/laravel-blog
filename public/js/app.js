@@ -7,26 +7,15 @@ $(function() {
 
     });
 
-    $(".addcat").click(function (e) {
-        //e.preventDefault();
-        //$(this).attr("disabled","disabled");
-        //$(this).closest('form').submit();
-
-
-    });
-
-    $(".product_delete").click(function(e) {
-
-
+    $(".category_delete").click(function(e) {
 
         e.preventDefault();
         var id = $(this).data("id");
         $(".dialog").fadeIn(500);
+
         $("#delete").click(function() {
             e.preventDefault();
             $(".dialog").fadeOut();
-            (500);
-
 
             $.ajaxSetup({
                 headers: {
@@ -36,14 +25,13 @@ $(function() {
 
             $.ajax({
 
-                url: '/admin/product/delete',
-                method: "POST",
-                data: {
-                    id: id
+                url: '/admin/category/delete',
+                method: "post",
+                data : {
+                    id : id
                 },
-
                 success: function(data) {
-                    location.reload();
+                    window.location = "/admin/categories";
 
                 },
                 error: function(data) {

@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\DB;
-use App\Models\Cart;
 
 class RegisteredUserController extends Controller
 {
@@ -36,8 +34,6 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
 
-        $session_id = session()->getId();
-
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -50,18 +46,12 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->assignRole("customer");
+        $user->assignRole("guest");
 
-       // event(new Registered($user));
+        event(new Registered($user));
 
         Auth::login($user);
 
-        if(Cart::where('session_id',$session_id)->count('product_id') != 0)
-        {
-            $cart = DB::update('update carts set user_id = ? where session_id = ?', [$u_id , $session_id]);
-
-            return redirect("/customer");
-        }
 
         return redirect(RouteServiceProvider::redirectAuth());
     }

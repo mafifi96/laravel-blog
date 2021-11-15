@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
     <div class="container">
-        <a class="navbar-brand" href="/">Store</a>
+        <a class="navbar-brand" href="/">Blog</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
             aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -14,15 +14,15 @@
 
                 @ifadmin
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard">Dashboard</a>
+                    <a class="nav-link" href="/admin/dashboard">Dashboard</a>
                 </li>
                 @endif
 
 
-                @ifcustomer
+                @ifeditor
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/customer">Profile</a>
+                    <a class="nav-link" href="/editor">Profile</a>
                 </li>
 
                 @endif

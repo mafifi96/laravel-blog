@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
-class Customer
+class Editor
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,7 @@ class Customer
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->roles[0]->name == 'customer') {
+        if (Auth::check() && Auth::user()->roles[0]->name == 'editor') {
 
             return $next($request);
         }

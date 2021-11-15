@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Product;
+use App\Models\Post;
 
 class Category extends Model
 {
@@ -14,9 +14,9 @@ class Category extends Model
 
     protected $guarded = [];
 
-    public function products()
+    public function posts()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Post::class ,'category_id');
     }
 
 }

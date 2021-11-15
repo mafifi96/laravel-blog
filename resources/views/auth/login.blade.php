@@ -36,7 +36,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <input type="email" class="form-control form-control-user"
-                                            id="exampleInputEmail" name="email" aria-describedby="emailHelp"
+                                    id="exampleInputEmail" name="email" value="{{old('email')}}" aria-describedby="emailHelp"
                                             placeholder="Enter Email Address..." required>
                                     </div>
                                     <div class="form-group">

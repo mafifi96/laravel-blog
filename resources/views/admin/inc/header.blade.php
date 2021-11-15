@@ -4,7 +4,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/dashboard">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -34,19 +34,19 @@
                 <span>Categories</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/admin/products">
-                <i class="fab fa-product-hunt"></i>
-                <span>Products</span></a>
+            <a class="nav-link" href="/admin/posts">
+                <i class="fas fa-paperclip"></i>
+                <span>Posts</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/admin/orders">
-                <i class="fa fa-shipping-fast"></i>
-                <span>Orders</span></a>
+            <a class="nav-link" href="/admin/users">
+                <i class="fa fa-user"></i>
+                <span>Users</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/admin/customers">
                 <i class="fab fa-intercom"></i>
-                <span>Customers</span></a>
+                <span>Settings</span></a>
         </li>
 
 
@@ -138,9 +138,9 @@
 
                             <form method="POST" action="http://127.0.0.1:8000/logout">
                                 @csrf
-                                <a  class="btn btn-primary dropdown-item" data-toggle="modal" data-target="#logoutModal"
-                                    href="javascript:void(0)" onclick="this.disabled='disabled'; event.preventDefault();
-                                                            this.closest('form').submit();">
+
+                                <a  class="btn btn-primary dropdown-item" data-toggle="modal"data-target="#logoutModal"
+                                    href="javascript:void(0)" onclick="this.disabled='disabled'; event.preventDefault();this.closest('form').submit();">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>

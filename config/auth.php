@@ -53,7 +53,7 @@ return [
             'provider' => 'users'
         ],
 
-        'customer' =>
+        'editor' =>
         [
             'driver'=>'session',
             'provider'=>'users'
@@ -87,7 +87,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'customer' => [
+        'editor' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
@@ -127,7 +127,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'customer' => [
+        'editor' => [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,

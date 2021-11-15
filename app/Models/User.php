@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Order;
+use App\Models\Post;
+
 
 class User extends Authenticatable
 {
@@ -41,9 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function order(){
+    public function posts(){
 
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Post::class);
     }
 
     public function roles()
@@ -57,7 +58,7 @@ class User extends Authenticatable
         {
             $role = Role::whereName($role)->firstOrFail();
         }
-        $this->roles()->save($role);
+        $this->roles()->sync($role );
     }
 
     public function abilities()
@@ -66,9 +67,9 @@ class User extends Authenticatable
     }
 
 
-    public function cart()
+    public function comments()
     {
-        return $this->hasMany(Cart::class);
+        return $this->hasMany(Comment::class);
     }
 
 }

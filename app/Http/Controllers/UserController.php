@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Order;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
-use App\Models\Cart;
-use Illuminate\Support\Facades\DB;
+use App\Models\Post;
+
 
 class UserController extends Controller
 {
@@ -21,42 +19,27 @@ class UserController extends Controller
 
     public function admin()
     {
-        $total_orders = Order::count();
-        $total_cutomers = User::count();
-        $total_sales = Order::sum("total_price");
+        $total_posts = Post::count();
+        $total_users = User::count();
+        $total_categories = Category::count();
 
-        if($total_sales < 1000000)
-        {
-            $total_sales = number_format($total_sales , 0 , '.'  , ','). "K";
-
-        }elseif($total_sales >= 1000000){
-            $total_sales = number_format($total_sales , 0 , '.'  , ','). "M";
-        }
-
-        return view('admin.dashboard' , ['total_customers'=>$total_cutomers , 'total_orders'=>$total_orders,'total_sales'=>$total_sales]);
+        return view('admin.dashboard' , ['total_posts'=>$total_posts , 'total_users'=>$total_users , 'total_categories'=> $total_categories]);
 
     }
 
-    public function customer()
+    public function editor()
     {
-        $carts = Auth::user()->cart;
-        $total_price = Cart::where("user_id", Auth::id())->sum('price');
 
-        return view('customer.profile' , ['carts' => $carts , 'total_price' => $total_price]);
 
-    }
 
-    public function checkout()
-    {
-        if(Auth::check()){return redirect("/customer");}
-        return view('guest.check');
+        return view('editor.profile');
 
     }
 
-    public function customer_info(Request $request)
+    public function editor_info(Request $request)
     {
         //dd($request->all());
-
+/*
         $session_id = session()->getId();
 
         $request->validate([
@@ -90,26 +73,10 @@ class UserController extends Controller
 
         $cart = DB::update('update carts set user_id = ? where session_id = ?', [$u_id , $session_id]);
 
-
-        return redirect("/customer");
+ */
+//        return redirect("/customer");
     }
 
-    public function index()
-    {
-
-        return "welcome" . Auth::user()->name;
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -119,7 +86,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

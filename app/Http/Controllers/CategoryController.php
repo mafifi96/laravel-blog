@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view("admin.layouts.categories" , ['categories' => $categories]);
+        return view("admin.layouts.category.categories" , ['categories' => $categories]);
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view("admin.layouts.category_create");
+        return view("admin.layouts.category.create");
     }
 
     /**
@@ -59,7 +59,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view("admin.layouts.category" , ['category'=>$category]);
+        return view("admin.layouts.category.category" , ['category'=>$category]);
     }
 
     /**
@@ -68,9 +68,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view("admin.layouts.category.edit" , ['category'=>$category]);
     }
 
     /**
@@ -82,7 +82,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->update([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+
+        $request->session()->flash('CategoryUpdated', "Category <strong>".$request->name . " </strong>updated..!");
+
+
+        return redirect("/admin/category/".$id);
     }
 
     /**
@@ -91,8 +100,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return true;
     }
 }

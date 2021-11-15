@@ -24,11 +24,10 @@
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6">
             <div class="card ">
-                <div class="card-header">Total Orders <span class="pull-right">
-                        <i class="fa fa-caret-up"></i>
-                        67%</span></div>
-                <div class="card-body"><i class="fa fa-shopping-cart"></i>
-                <h2 class="pull-right">{{$total_orders}}</h2>
+                <div class="card-header"><i class="fas fa-paperclip"></i> Total posts <span class="pull-right">
+                        </div>
+                <div class="card-body">
+                <h2 class="pull-right">{{$total_posts}}</h2>
                 </div>
                 <div class="card-footer"><a
                         href="#">View
@@ -37,11 +36,10 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6">
             <div class="card ">
-                <div class="card-header">Total Sales <span class="pull-right">
-                        <i class="fa fa-caret-up"></i>
-                        35%</span></div>
-                <div class="card-body"><i class="fa fa-credit-card"></i>
-                <h2 class="pull-right">{{$total_sales}}</h2>
+                <div class="card-header"><i class="fa fa-credit-card"></i> Total Category <span class="pull-right">
+                        </div>
+                <div class="card-body">
+                <h2 class="pull-right">{{$total_categories}}</h2>
                 </div>
                 <div class="card-footer"><a
                         href="#">View
@@ -50,11 +48,10 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6">
             <div class="card ">
-                <div class="card-header">Total Customers <span class="pull-right">
-                        <i class="fa fa-caret-up"></i>
-                        33%</span></div>
-                <div class="card-body"><i class="fa fa-user"></i>
-                <h2 class="pull-right">{{$total_customers}}</h2>
+                <div class="card-header"><i class="fa fa-user"></i> Total Users <span class="pull-right">
+                        </div>
+                <div class="card-body">
+                <h2 class="pull-right">{{$total_users}}</h2>
                 </div>
                 <div class="card-footer"><a
                         href="#">View
@@ -63,9 +60,10 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6">
             <div class="card ">
-                <div class="card-header">People Online</div>
-                <div class="card-body"><i class="fa fa-users"></i>
-                    <h2 class="pull-right">0</h2>
+                <div class="card-header"><i class="fa fa-users"></i> People Online</div>
+                <div class="card-body">
+
+                    <h2 class="pull-right">{{$total_users}}</h2>
                 </div>
                 <div class="card-footer"><a
                         href="#">View

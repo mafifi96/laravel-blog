@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Categories;
+use App\Models\Category;
 
 class ProductFactory extends Factory
 {
@@ -29,7 +29,7 @@ class ProductFactory extends Factory
             'status' => $this->faker->boolean(),
             'stock' => rand(0,6),
             'price' => rand(10,3000),
-            'category_id' => Categories::factory()
+            'category_id' => Category::factory()
 
         ];
     }

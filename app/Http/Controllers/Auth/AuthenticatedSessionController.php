@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Cart;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,15 +28,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $sessions['notloged'] = session()->getId();
+
         $request->authenticate();
 
-        $user = Cart::where("session_id" , $sessions['notloged'])
-        ->update([
-                'user_id' => Auth::id()
-        ]);
-
-        //$request->session()->regenerate();
+        $request->session()->regenerate();
 
         return RouteServiceProvider::redirectAuth();
     }
@@ -50,7 +44,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        Auth::logout();
 
         $request->session()->invalidate();
 

@@ -38,10 +38,13 @@ class RouteServiceProvider extends ServiceProvider
     {
         if (Auth::user()->roles[0]->name == 'admin') {
 
-            return redirect("/dashboard");
+            return redirect("/admin/dashboard");
 
-        } elseif (Auth::user()->roles[0]->name == 'customer') {
-            return redirect("/customer");
+        } elseif (Auth::user()->roles[0]->name == 'editor') {
+            return redirect("/profile");
+        }else{
+
+            return redirect("/");
         }
 
     }

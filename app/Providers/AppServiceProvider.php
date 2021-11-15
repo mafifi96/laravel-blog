@@ -36,11 +36,11 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
-        Blade::directive('ifcustomer' , function()
+        Blade::directive('ifeditor' , function()
         {
             return "<?php
 
-            if(Auth::check() && Auth::user()->roles[0]['name'] == 'customer'):
+            if(Auth::check() && Auth::user()->roles[0]['name'] == 'editor'):
 
             ?>";
 

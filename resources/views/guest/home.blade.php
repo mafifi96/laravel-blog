@@ -13,32 +13,28 @@
             <div class="col-md-12">
                 <div class="row">
 
-                    @forelse ($products as $product )
+                    @forelse ($posts as $post)
                     <div class="col-md-4 px-1 shadow">
 
                         <div class="card">
-                        <a href="/product/{{$product->id}}">
-                        <img src="{{asset("uploads/".$product->images[0]->image)}}" style="height:300px;" class="img-thumbnail card-img-top"
+                        <a href="/post/{{$post->slug}}">
+                        <img src="{{asset("uploads/".$post->cover)}}" style="height:300px;" class="img-thumbnail card-img-top"
                                 alt="placeholder">
                             </a>
                             <div class="card-body">
-                                <h5 class="card-title"><a href="/product/{{$product->id}}"
-                                        class="btn text-left">{{$product->title}}</a></h5>
-                                <p class="card-text">{{$product->price}}</p>
+                                <h5 class="card-title"><a href="/post/{{$post->slug}}"
+                                        class="btn text-left">{{$post->title}}</a></h5>
+
                                 <div class="card-footer">
 
-                                    <form method="post" name="add">
-                                        @csrf
                                         <div class="row">
-                                            <div class="col-md-8 justify-content-">
-                                                <div class="form-group">
-                                                    <input type="number" class="form-control" name="quantity"
-                                                        placeholder="quantity..." value="" required>
-                                                </div>
+                                            <div class="col-md-12">
+                                                <p>{{$post->excerpt}}</p>
                                             </div>
-                                            <div class="col-md-2 pull-right">
-                                                <button type="submit" data-name="{{$product->title}}" data-price="{{$product->price}}" data-id="{{$product->id}}"
-                                                    class="btn btn-primary addtocart" name="submit">Add</button>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a class="text-capitalize" href="/post/{{$post->slug}}" >see more</a>
                                             </div>
                                         </div>
                                     </form>
@@ -48,7 +44,7 @@
 
                     </div>
                     @empty
-                    <h6>No More Products</h6>
+                    <h6>No More posts</h6>
                     @endforelse
                 </div>
             </div>
