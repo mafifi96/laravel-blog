@@ -7,6 +7,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\EditorProfileController;
 
 /* Public Routes */
 
@@ -19,6 +20,9 @@ Route::post('/post/{post}/comment/store', [CommentController::class, 'store']);
 Route::delete('/post/{post}/comment/{commente}/delete', [CommentController::class, 'delete']);
 Route::put('/Post/{post}/comment/{comment}/update', [CommentController::class, 'update']);
 Route::get('/tag/{tag}', [PageController::class , 'tag']);
+
+Route::get('/search', [PageController::class , 'search']);
+
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
 
@@ -52,19 +56,42 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::delete('/user/{user}/delete', [EditorAndGuestController::class, 'destroy']);
     Route::post('/user/{user}/block', [EditorAndGuestController::class, 'block']);
     Route::post('/user/{user}/mute', [EditorAndGuestController::class, 'mute']);
+
+    Route::view("/settings" , "admin.layouts.settings");
 });
 
 Route::group(['prefix' => 'editor', 'middleware' => ['auth', 'editor']], function () {
 
     /* Editor -> Routes */
 
-    Route::get('/profile', [UserController::class, 'editor']);
-    Route::get('/post/{post}', [EditorController::class, 'post']);
-    Route::get('/post/create', [EditorController::class, 'post_create']);
-    Route::get('/post/{post}/edit', [EditorController::class, 'post_edit']);
-    Route::post('/post/store', [EditorController::class, 'post_store']);
-    Route::put('/post/{post}/update', [EditorController::class, 'post_update']);
-    Route::delete('/post/{post}/delete', [EditorController::class, 'post_delete']);
+    Route::get('/profile', [EditorProfileController::class, 'profile']);
+    Route::get('/posts', [EditorProfileController::class, 'posts']);
+    Route::get('/post/create', [EditorProfileController::class, 'create_post']);
+    Route::get('/post/{post}', [EditorProfileController::class, 'show_post']);
+    Route::get('/post/{post}/edit', [EditorProfileController::class, 'edit_post']);
+    Route::post('/post/store', [EditorProfileController::class, 'store_post']);
+    Route::put('/post/{post}/update', [EditorProfileController::class, 'update_post']);
+    Route::delete('/post/{post}/delete', [EditorProfileController::class, 'delete_post']);
+
+    /* Categories Routes */
+
+    Route::get('/categories', [EditorProfileController::class, 'categories']);
+    Route::get('/category/create', [EditorProfileController::class, 'create_category']);
+    Route::get('/category/{category}', [EditorProfileController::class, 'show_category']);
+    Route::get('/category/{category}/edit', [EditorProfileController::class, 'edit_category']);
+    Route::post('/category/store', [EditorProfileController::class, 'store_category']);
+    Route::put('/category/{category}/update', [EditorProfileController::class, 'update_category']);
+    Route::delete('/category/{category}/delete', [EditorProfileController::class, 'delete_category']);
+
+    /* Users Routes */
+
+    Route::get('/users', [EditorProfileController::class, 'users']);
+    Route::get('/users/create', [EditorProfileController::class, 'create_user']);
+    Route::get('/users/{user}', [EditorProfileController::class, 'show_user']);
+    Route::get('/users/{user}/edit', [EditorProfileController::class, 'edit_user']);
+    Route::post('/users/store', [EditorProfileController::class, 'store_user']);
+    Route::put('/users/{user}/update', [EditorProfileController::class, 'update_user']);
+    Route::delete('/users/{user}/delete', [EditorProfileController::class, 'delete_user']);
 
 });
 

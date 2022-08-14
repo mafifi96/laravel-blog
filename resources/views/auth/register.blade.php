@@ -4,6 +4,8 @@
 
 @section('content')
 
+
+<div class="col-md-9 col-lg-9 col-sm-12 ">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 ">
@@ -53,7 +55,7 @@
                         </div>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            <a class="small" href="#">Forgot Password?</a>
                         </div>
                         <div class="text-center">
                             <a class="small" href="/login">Already have an account? Login!</a>
@@ -63,7 +65,7 @@
             </div>
         </div>
     </div>
-
 </div>
-
+</div>
+</main>
 @endsection

@@ -15,8 +15,12 @@ class EditorAndGuestController extends Controller
         /* $users = DB::select('SELECT users.id , users.name , users.email , users.created_at , role.id as role_id ,  role.name as role_name from users
         join role_user on users.id = role_user.user_id
         join role on role.id = role_user.role_id where role.name = "editor" or role.name = "guest" order by role.name');
-         */
-        $users = User::with('roles')->get();
+*/
+        // OR
+
+        $users = User::whereNotIn('id' , [auth()->user()->id])->with('roles')->get();
+
+        //$users = User::with('roles')->get();
 
         return view("admin.layouts.users.users", ['users' => $users]);
     }
@@ -43,7 +47,7 @@ class EditorAndGuestController extends Controller
             'role' => 'string'
         ]);
 
-        
+
         if ($request->hasFile('avatar')) {
 
             $avatar = $request->file('avatar');
@@ -67,11 +71,14 @@ class EditorAndGuestController extends Controller
 
     public function edit(User $user)
     {
-        return view("admin.layouts.users.edit", ['user' => $user]);
+        $abilities = $user->abilities->flatten()->pluck('id');
+
+        return view("admin.layouts.users.edit", ['user' => $user , 'abilities' => $abilities]);
     }
 
     public function update(Request $request, $user)
     {
+        //dd($request->all());
         $User = User::findOrFail($user);
 
         if ($request->hasFile('avatar')) {
@@ -105,11 +112,16 @@ class EditorAndGuestController extends Controller
         if (isset($request->role) and $request->role == "guest") {
 
             $User->assignRole("guest");
+
         }
 
         if ($request->role and $request->role == "editor") {
             $User->assignRole("editor");
+
+            $User->allowTo($request->abilities);
         }
+
+
 
         $User->updated_at = \Carbon\Carbon::now();
 
@@ -124,7 +136,7 @@ class EditorAndGuestController extends Controller
     {
         $user = User::findOrFail($id);
         $name = $user->name;
-        
+
         $user->roles()->detach();
 
         $user->delete();

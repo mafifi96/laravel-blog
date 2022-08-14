@@ -5,9 +5,9 @@ namespace App\Providers;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public static $home = '/';
+    public static $HOME = '/';
 
     /**
      * The controller namespace for the application.
@@ -34,20 +34,25 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public static function  redirectAuth()
+    public static function redirectAuth()
     {
         if (Auth::user()->roles[0]->name == 'admin') {
 
-            return redirect("/admin/dashboard");
+            $path = '/admin/dashboard';
 
         } elseif (Auth::user()->roles[0]->name == 'editor') {
-            return redirect("/profile");
-        }else{
 
-            return redirect("/");
+            $path = '/editor/profile';
+
+        } elseif (Auth::user()->roles[0]->name == 'guest') {
+
+            $path = '/';
         }
 
+        return redirect($path);
+
     }
+
     public function boot()
     {
         $this->configureRateLimiting();

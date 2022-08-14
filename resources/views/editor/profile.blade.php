@@ -1,75 +1,51 @@
-@extends('master')
+@extends('editor.master')
 
-@section("title" , "Profile")
+@section("title" , "Profile | ". auth()->user()->name )
 
 @section("content")
 
-<div class="content" style="width:83%;float:right;">
-    <div class="container">
-        <div class="row">
 
-            <!-- posts -->
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="h4">Your Posts</h4>
 
-                      {{--   @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page header -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+<div class="btn-group">
+        <a href="/" class="d-none d-sm-inline-block btn mx-2 btn-sm btn-primary shadow-sm"><i
+            class="fas fa-home fa-sm text-white-50"></i> Home</a>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div>
+</div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                your posts</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$total_posts}}</div>
                         </div>
-                        @endif
-
-                        @if(session()->has('orderconfirmed'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {!! session()->get('orderconfirmed') !!}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <div class="col-auto">
+                            <i class="fas fa-paperclip fa-2x text-gray-300"></i>
                         </div>
-                        @endif
- --}}
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered">
-                            <thead>
-                                <td scope="col">#</td>
-                                <td scope="col">Title</td>
-                                <td scope="col">Views</td>
-                                <td scope="col">Comments</td>
-                            </thead>
-                            @forelse ($posts as $post )
-                            <tr>
-                                <td>{{($loop->index + 1)}}</td>
-                                <td><a href="/post/{{$post->id}}">{{$post->title}}</a></td>
-                                <td>{{$post->views}}</td>
-                                <td>{{$post->comments->count()}}</td>
-
-                            </tr>
-                            @empty
-
-                            <tr>
-                                <td colspan="4" class="text-center">No Posts</td>
-                            </tr>
-                            @endforelse
-
-                        </table>
-                    </div>
-                   {{--  @if (session()->has('cart_quantity'))
-
-                    <div class="card-footer justify-content-center">
-                        <a href="/confirm/order" class="btn btn-primary" id="confirm-order">Confirm Order</a>
-                    </div>
-
-                    @endif --}}
                 </div>
             </div>
         </div>
-    </div>
-</div>
-</main>
 
+
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
 
 @endsection

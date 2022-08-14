@@ -34,7 +34,21 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        //
+        return $post->author->is($user) && $user->roles[0]->name == 'editor';
+    }
+
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+
+    public function viewPosts(User $user)
+    {
+        return $user->roles[0]->name == 'editor' && $user->allowedTo('create-post');
     }
 
     /**
@@ -45,7 +59,8 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->roles[0]->name == 'editor' && $user->allowedTo('create-post');
+
     }
 
     /**
@@ -57,7 +72,8 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        //
+
+        return $user->roles[0]->name == 'editor' && $user->allowedTo('update-post') && $post->author->is($user);
     }
 
     /**
@@ -69,7 +85,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $post->author->is($user);
+        return $user->roles[0]->name == 'editor' && $user->allowedTo('delete-post') && $post->author->is($user);
     }
 
     /**

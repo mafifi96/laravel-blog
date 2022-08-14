@@ -19,11 +19,12 @@ class CreatePostsTable extends Migration
             $table->string("slug");
             $table->string("cover")->nullable();
             $table->longText("body");
+            $table->json('tags');
             $table->foreignId("user_id")->constrained()->onDelete("cascade")->onUpdate("cascade");
             $table->foreignId("category_id")->constrained()->onDelete("cascade")->onUpdate("cascade");
             $table->timestamps();
         });
-
+/* 
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string("name")->nullable();
@@ -37,7 +38,7 @@ class CreatePostsTable extends Migration
             $table->foreignId("tag_id")->constrained()->onDelete("cascade")->onUpdate("cascade");
             $table->foreignId("post_id")->constrained()->onDelete("cascade")->onUpdate("cascade");
         });
-    }
+ */    }
 
     /**
      * Reverse the migrations.

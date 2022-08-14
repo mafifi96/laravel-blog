@@ -16,7 +16,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="/dashboard">
+            <a class="nav-link" href="/admin/dashboard">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -44,7 +44,7 @@
                 <span>Users</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/admin/customers">
+            <a class="nav-link" href="/admin/settings">
                 <i class="fab fa-intercom"></i>
                 <span>Settings</span></a>
         </li>

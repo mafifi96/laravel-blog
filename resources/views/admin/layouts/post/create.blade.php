@@ -59,11 +59,12 @@
 
                         <div class="form-group">
                             <textarea  class="form-control form-control-user"
-                                 name="excerpt" value="{{old('excerpt')}}" maxlength="150" required placeholder="Excerpt..."></textarea>
+                                 name="excerpt"  maxlength="150" required placeholder="Excerpt...">{{old('excerpt')}}</textarea>
                         </div>
                         <div class="form-group">
                             <textarea id="postbody"  class="form-control form-control-user body-content"
-                                 name="body" value="{{old('body')}}" maxlength="500" required placeholder="Body..."></textarea>
+                                 name="body"  maxlength="500" required placeholder="Body...">
+                                 {{old('body')}}</textarea>
                         </div>
 
 
@@ -78,10 +79,10 @@
                             <select name="category_id" class="form-control form-control-user">
                                 <option value="" selected>--Selected--</option>
                                 @foreach ($categories as $category)
-                            <option value="{{$category->id}}">{{$category->name}}</option>
+                            <option value="{{$category->id}}" {{ (old('category_id') == $category->id) ? 'selected' : ''}}>{{$category->name}}</option>
                                 @endforeach
-
                             </select>
+
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control form-control-user" name="tags"

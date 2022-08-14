@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Post;
-
+use App\Models\Ability;
+use App\Models\Comment;
+use App\Models\Role;
+use App\Services\Permisions;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use Permisions,HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -58,12 +61,17 @@ class User extends Authenticatable
         {
             $role = Role::whereName($role)->firstOrFail();
         }
-        $this->roles()->sync($role );
+        $this->roles()->sync($role);
     }
 
-    public function abilities()
+    public function abilities(){
+
+        return $this->belongsToMany(Ability::class, "user_ability");
+    }
+
+    public function allowTo($ability)
     {
-        return $this->roles->map->abilities->flatten()->pluck('name')->unique();
+        $this->abilities()->sync($ability);
     }
 
 
