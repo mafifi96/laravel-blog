@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::latest()->get();
+
         return view("admin.layouts.category.categories" , ['categories' => $categories]);
     }
 
@@ -34,20 +36,15 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $data = $request->validate([
+        $data = $request->validated();
 
-            'name' => 'required|max:20|min:3|string',
-            'description' => 'max:100'
-
-        ]);
-
-        $request->session()->flash('saved', "Category <strong>".$request->name . " </strong>Created..!");
         Category::create($data);
 
-        return back();
+        $request->session()->flash('saved', "Category <strong>".$request->name . " </strong>Created..!");
 
+        return back();
 
     }
 
@@ -80,16 +77,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         $category = Category::findOrFail($id);
-        $category->update([
-            'name' => $request->name,
-            'description' => $request->description
-        ]);
+
+        $category->update($request->validated());
 
         $request->session()->flash('CategoryUpdated', "Category <strong>".$request->name . " </strong>updated..!");
-
 
         return redirect("/admin/category/".$id);
     }
@@ -99,12 +93,16 @@ class CategoryController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     *
+     * ____For AJAX REQUEST____
      */
+
     public function destroy(Request $request)
     {
         $id = $request->id;
 
         $category = Category::findOrFail($id);
+
         $category->delete();
 
         return true;

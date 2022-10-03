@@ -29,10 +29,11 @@ class UserController extends Controller
 
     public function editor()
     {
+        $total_posts = auth()->user()->posts->count();
 
+        $abilities = auth()->user()->abilities->flatten()->pluck('name');
 
-
-        return view('editor.profile');
+        return view('editor.profile' , ['total_posts' => $total_posts , 'abilities' => $abilities]);
 
     }
 

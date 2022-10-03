@@ -12,9 +12,12 @@ class PageController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->get();
 
-        return view("guest.home" , ['posts' => $posts]);
+        $posts = Post::latest()->paginate(10);
+
+        $slider = Post::latest()->take(3)->get();
+
+        return view("guest.home" , ['posts' => $posts , 'slider' =>$slider]);
     }
 
     public function post(Post $post)
@@ -24,9 +27,27 @@ class PageController extends Controller
 
     public function tag($tag)
     {
-        $posts = Post::where("tags" , "like" , "%$tag%")->get();
+        $posts = Post::where("tags" , "like" , "%$tag%")->paginate(10);
 
         return view("guest.tag" , ['posts'=>$posts , 'tag'=>$tag]);
+    }
+
+    public function search(Request $request)
+    {
+        if($request->q){
+
+            $query = $request->q;
+
+            $posts = Post::where("title" , "like" , "%$query%")->paginate(10);
+
+            return view("guest.search" , ['posts'=>$posts , 'query'=>$query]);
+
+        }else{
+
+            return redirect('/');
+        }
+
+
     }
 
     public function category(Category $category , $name = null)

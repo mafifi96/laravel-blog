@@ -31,10 +31,14 @@
 
 @include("admin.inc.header")
 
-    @yield('content')
+@yield('content')
 
-@include("admin.inc.footer")
+<!-- Footer -->
+@include('admin.inc.footer')
+<!-- End of Footer -->
 
+</div>
+<!-- End of Content Wrapper -->
 
 <!-- CUSTOM JS SCRIPTS -->
 

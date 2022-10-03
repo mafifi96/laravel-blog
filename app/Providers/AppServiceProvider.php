@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Category;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -46,6 +47,9 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
-        view()->share('categories', Category::all());
+        view()->share(['categories' => Category::all() , 'trending' => Post::latest()->take(4)->get()]);
+
+        \Illuminate\Pagination\Paginator::useBootstrap();
+
     }
 }

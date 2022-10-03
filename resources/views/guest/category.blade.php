@@ -4,21 +4,20 @@
 
 @section("content")
 
-    <div class="content" style="width:83%;float:right;">
-    <div class="container">
+
+<div class="col-md-9 col-lg-9 col-sm-12 ">
+    
+        <div class="container">
         <div class="row">
-
-
-            <!-- Products -->
             <div class="col-md-12">
                 <div class="row">
 
                     @forelse ($category->posts as $post)
-                    <div class="col-md-4 px-1 shadow">
+                    <div class="col-md-6 col-lg-6 col-sm-12 mb-3 p-1 ">
 
-                        <div class="card">
+                        <div class="card shadow-sm">
                         <a href="/post/{{$post->slug}}">
-                        <img src="{{asset("uploads/".$post->cover)}}" style="height:300px;" class="img-thumbnail card-img-top"
+                        <img src="{{asset("uploads/".$post->cover)}}"  class="img-fluid card-img-top"
                                 alt="placeholder">
                             </a>
                             <div class="card-body">
@@ -49,7 +48,9 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
+</div>
 </div>
 </main>
 

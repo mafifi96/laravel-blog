@@ -20,7 +20,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h6 class="h6 text-muted">Edit : <small>{{$post->title}}</small></h4>
+                    <h4 class="h4 ">Edit : {{$post->title}}</h4>
 
                         @if ($errors->any())
                         <div class="alert alert-danger">
@@ -54,8 +54,12 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="file" class="form-control form-control-user" name="cover"
+                            <input id="file" type="file" class="form-control form-control-user" name="cover"
                         placeholder="Cover" >
+                        </div>
+
+                        <div class="mb-3">
+                            <img class="img-thumbnail" id="cover" src="{{asset('uploads/'.$post->cover)}}" alt="{{$post->title}}">
                         </div>
 
                         <div class="form-group">
@@ -91,7 +95,7 @@ $tags = json_decode($post->tags);
 
 @endphp
                             <input type="text" class="form-control form-control-user" name="tags"
-                        placeholder="Tags"   value="@foreach($tags as $tag) {{$tag}} @endforeach">
+                        placeholder="Tags"   value="@foreach($tags as $tag) {{trim($tag)." "}} @endforeach">
                         </div>
 
                     <button onclick="this.disabled='disabled';this.closest('form').submit();" type="submit" class="btn btn-primary btn-user btn-block">
@@ -110,15 +114,6 @@ $tags = json_decode($post->tags);
 </div>
 <!-- End of Main Content -->
 
-<!-- Footer -->
-<footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
-        </div>
-    </div>
-</footer>
-<!-- End of Footer -->
 
 @push('footerscripts')
 
@@ -182,9 +177,23 @@ tinymce.init({
 
 </script>
 
+<script>
+    $(document).ready(() => {
+        $("#file").change(function () {
+            const file = this.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function (event) {
+                    $("#cover")
+                      .attr("src", event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+
 @endpush
-</div>
-<!-- End of Content Wrapper -->
 
 
 @endsection

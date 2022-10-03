@@ -68,7 +68,7 @@
                             </select>
                         </div>
 
-                        
+
                         <div class="form-group">
                             <input type="password" class="form-control form-control-user" name="password" placeholder="Password"
                                 required value="{{old('password')}}">
@@ -90,19 +90,6 @@
 
 </div>
 <!-- End of Main Content -->
-
-<!-- Footer -->
-<footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
-        </div>
-    </div>
-</footer>
-<!-- End of Footer -->
-
-</div>
-<!-- End of Content Wrapper -->
 
 
 @endsection
