@@ -50,6 +50,6 @@ class AppServiceProvider extends ServiceProvider
         view()->share(['categories' => Category::all() , 'trending' => Post::latest()->take(4)->get()]);
 
         \Illuminate\Pagination\Paginator::useBootstrap();
-                
+
     }
 }

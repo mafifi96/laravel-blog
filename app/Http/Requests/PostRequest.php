@@ -27,8 +27,8 @@ class PostRequest extends FormRequest
             'title'   => 'required|max:50|min:15|string',
             'slug'    => 'required|max:50',
             'excerpt' => 'required|max:150',
-            'cover'   => 'required|mimes:png,jpg,jpeg',
-            'body'    => 'required|max:2000|min:200',
+            'cover'   => 'mimes:png,jpg,jpeg',
+            'body'    => 'required|max:100000|min:200',
             'category_id' => 'required|integer',
             'status' => 'required|string',
             'tags' => 'required|string'

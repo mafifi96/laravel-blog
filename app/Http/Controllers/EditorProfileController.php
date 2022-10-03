@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use App\Http\Requests\PostRequest;
+use App\Services\PostService;
 
 
 class EditorProfileController extends Controller
@@ -60,15 +61,10 @@ class EditorProfileController extends Controller
 
         $data = $request->validated();
 
-        $file_name = $request->file('cover')->hashName();
 
-        $request->cover->move(public_path('uploads'), $file_name);
+        $data['cover'] = PostService::uploadCover($request);
 
-        $data['cover'] = $file_name;
-
-        $tags = explode(' ' , trim($request->tags , ' '));
-
-        $data['tags'] = json_encode($tags);
+        $data['tags'] = PostService::trimTags($request);
 
         $post = auth()->user()->posts()->create($data);
 

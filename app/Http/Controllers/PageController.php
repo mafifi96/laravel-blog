@@ -12,10 +12,12 @@ class PageController extends Controller
 {
     public function index()
     {
-        
+
         $posts = Post::latest()->paginate(10);
-        
-        return view("guest.home" , ['posts' => $posts]);
+
+        $slider = Post::latest()->take(3)->get();
+
+        return view("guest.home" , ['posts' => $posts , 'slider' =>$slider]);
     }
 
     public function post(Post $post)
@@ -35,13 +37,13 @@ class PageController extends Controller
         if($request->q){
 
             $query = $request->q;
-            
+
             $posts = Post::where("title" , "like" , "%$query%")->paginate(10);
 
             return view("guest.search" , ['posts'=>$posts , 'query'=>$query]);
 
         }else{
-            
+
             return redirect('/');
         }
 

@@ -9,23 +9,17 @@ use App\Models\Post;
 use App\Models\Ability;
 use App\Models\Comment;
 use App\Models\Role;
-use App\Services\Permisions;
 
 class User extends Authenticatable
 {
-    use Permisions,HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
+    protected $guarded = [];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -45,7 +39,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts(){
+    public function posts()
+    {
 
         return $this->hasMany(Post::class);
     }
@@ -57,14 +52,14 @@ class User extends Authenticatable
 
     public function assignRole($role)
     {
-        if(is_string($role))
-        {
+        if (is_string($role)) {
             $role = Role::whereName($role)->firstOrFail();
         }
         $this->roles()->sync($role);
     }
 
-    public function abilities(){
+    public function abilities()
+    {
 
         return $this->belongsToMany(Ability::class, "user_ability");
     }
@@ -79,5 +74,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
-
 }

@@ -95,7 +95,7 @@ $tags = json_decode($post->tags);
 
 @endphp
                             <input type="text" class="form-control form-control-user" name="tags"
-                        placeholder="Tags"   value="@foreach($tags as $tag) {{$tag}} @endforeach">
+                        placeholder="Tags"   value="@foreach($tags as $tag) {{trim($tag)." "}} @endforeach">
                         </div>
 
                     <button onclick="this.disabled='disabled';this.closest('form').submit();" type="submit" class="btn btn-primary btn-user btn-block">

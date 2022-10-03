@@ -8,8 +8,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EditorProfileController;
-
+use Illuminate\Support\Facades\Http;
 /* Public Routes */
+
+Route::get("/api/posts" , function(){
+
+    return Http::dd()->get("https://jsonplaceholder.typicode.com/posts");
+});
 
 Route::get('/', [PageController::class, 'index']);
 Route::get('/post/{post}', [PageController::class, 'post'])->where(['post'=> '^[a-z0-9]+(?:-[a-z0-9]+)*$']);
@@ -30,7 +35,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/dashboard', [UserController::class, 'admin']);
     Route::get('/posts', [PostController::class, 'index']);
     Route::get('/post/create', [PostController::class, 'create']);
-    Route::get('/post/{post}', [PostController::class, 'show'])->where(['post'=> '^[a-z0-9]+(?:-[a-z0-9]+)*$']);
+    Route::get('/post/{post}', [PostController::class, 'show'])->name('admin.post')->where(['post'=> '^[a-z0-9]+(?:-[a-z0-9]+)*$']);
     Route::post('/post/store', [PostController::class, 'store']);
     Route::get('/post/{post}/edit', [PostController::class, 'edit']);
     Route::put('/post/{post}/update', [PostController::class, 'update']);

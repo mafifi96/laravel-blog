@@ -28,7 +28,7 @@
                     <h6 class="h6 text-muted">All Categories</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <table class="table table-responsive table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>

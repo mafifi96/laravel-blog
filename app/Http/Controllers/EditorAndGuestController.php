@@ -121,8 +121,6 @@ class EditorAndGuestController extends Controller
             $User->allowTo($request->abilities);
         }
 
-
-
         $User->updated_at = \Carbon\Carbon::now();
 
         $User->save();
@@ -135,6 +133,7 @@ class EditorAndGuestController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+
         $name = $user->name;
 
         $user->roles()->detach();

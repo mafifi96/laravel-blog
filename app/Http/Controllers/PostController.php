@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Http\Requests\PostRequest;
+use App\Services\PostService;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -35,21 +37,15 @@ class PostController extends Controller
 
         $data = $request->validated();
 
-        $file_name = $request->file('cover')->hashName();
+        $data['cover'] = PostService::uploadCover($request);
 
-        $request->cover->move(public_path('uploads'), $file_name);
-
-        $data['cover'] = $file_name;
-
-        $tags = explode(' ', trim($request->tags, ' '));
-
-        $data['tags'] = json_encode($tags);
+        $data['tags'] = PostService::trimTags($request);
 
         $post = auth()->user()->posts()->create($data);
 
         $request->session()->flash('postcreate', "Post <strong>" . $request->title . " </strong>Created..!");
 
-        return redirect()->back();
+        return redirect()->route("admin.post",['post'=>$post->slug]);
     }
 
     public function edit($id)
@@ -66,22 +62,21 @@ class PostController extends Controller
 
         $data = $request->validated();
 
-        $tags = preg_split('/\s+/', trim($request->tags, ' '));
-
-        $data['tags'] = json_encode($tags);
+        $data['tags'] = PostService::trimTags($request);
 
         if ($request->hasFile('cover')) {
 
-            $file_name = $request->file('cover')->hashName();
+            $oldCover = $Post->cover;
 
-            $request->cover->move(public_path('uploads'), $file_name);
+            $data['cover'] = PostService::uploadCover($request);
 
-            $data['cover'] = $file_name;
+            Storage::disk('public')->delete("uploads/".$oldCover);
         }
 
         $Post->update($data);
 
-        return redirect("/admin/posts");
+        return redirect()->route("admin.post",['post'=>$Post->slug]);
+
     }
 
     public function destroy($post)
